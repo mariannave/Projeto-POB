@@ -29,6 +29,10 @@ public class Funcionario extends Pessoa{
 	public String getFuncao(){
 		return funcao;
 	}
+	
+	public void addPagamento(Pagamento pag){
+		pagamentos.add(pag);
+	}
 
 	
 	@Override

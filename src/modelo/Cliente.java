@@ -42,9 +42,12 @@ public class Cliente extends Pessoa{
 		return endereco;
 	}
 	
+	public void addPagamento(Pagamento pag){
+		pagamentos.add(pag);
+	}
 	
 	@Override
 	public String toString() {
-		return super.toString() + " ---- Telefone = "+ telefone + " ---- Endereco = " + "endereco" ;
+		return super.toString() + " ---- Telefone = "+ telefone + " ---- Endereco = " + endereco ;
 	}
 }

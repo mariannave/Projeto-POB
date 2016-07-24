@@ -150,7 +150,6 @@ public class Sistema {
 				
 		//CADASTRANDO PRODUTO AO SERVICO
 		public static void addProdutoServico(int idServico, int idProduto)  throws Exception {
-					
 			Servico servico = manager.find(Servico.class, idServico);
 			
 			Produto produto = manager.find(Produto.class, idProduto);
@@ -162,19 +161,118 @@ public class Sistema {
 		}
 		
 		//CADASTRANDO PAGAMENTO
-		public static void addPagamento(int cliente, int servico, int funcionario){
+		public static void addPagamento(int cliente, int servico, String funcionario){
 			Cliente client = manager.find(Cliente.class, cliente);
 			Servico servic = manager.find(Servico.class, servico);
-			Funcionario func =  manager.find(Funcionario.class, funcionario);
+
+			Query s = manager.createQuery("select f FROM Funcionario f WHERE f.nome = '" +funcionario+ "'");		
+			List<Funcionario> lista = (List<Funcionario>)s.getResultList();
+			Funcionario func;
+			
+			if (lista.isEmpty()){
+				func = null;
+			}else{
+				func = lista.get(0);
+			}
+
+
 
 			manager.getTransaction().begin();
+			
 			Pagamento pag = new Pagamento();
 			pag.addCliente(client);
 			pag.addServico(servic);
 			pag.addFuncionario(func);
+			
 			manager.merge(pag);
 			manager.getTransaction().commit();
 			
 		}
 			
+		
+		public static String listarCliente() {
+			Query q = manager.createQuery("SELECT c FROM Cliente c");		
+			List<Cliente> aux = (List<Cliente>)q.getResultList();
+
+			String texto = "\nListagem de Clientes: \n";
+
+			if (aux.isEmpty())
+				texto += "Não possui clientes cadastrados";
+			else {	
+				for(Cliente c: aux) {
+					texto += "\n" + c; 
+				}
+			}
+			return texto;
+		}
+		
+		public static String listarFuncionario() {
+			Query q = manager.createQuery("SELECT f FROM Funcionario f");		
+			List<Funcionario> aux = (List<Funcionario>)q.getResultList();
+
+			String texto = "\nListagem de Funcionarios: \n";
+
+			if (aux.isEmpty())
+				texto += "Não possui funcionarios cadastrados";
+			else {	
+				for(Funcionario f: aux) {
+					texto += "\n" + f; 
+				}
+			}
+			return texto;
+		}
+		
+		public static String listarServicos() {
+			Query q = manager.createQuery("SELECT s FROM Servico s");		
+			List<Servico> aux = (List<Servico>)q.getResultList();
+
+			String texto = "\nListagem de Servicos: \n";
+
+			if (aux.isEmpty())
+				texto += "Não possui servicos cadastrados";
+			else {	
+				for(Servico s: aux) {
+					texto += "\n" + s; 
+				}
+			}
+			return texto;
+		}
+		
+		public static String listarProdutos() {
+			Query q = manager.createQuery("SELECT p FROM Produto p");		
+			List<Produto> aux = (List<Produto>)q.getResultList();
+
+			String texto = "\nListagem de Produtos: \n";
+
+			if (aux.isEmpty())
+				texto += "Não possui produtos cadastrados";
+			else {	
+				for(Produto p: aux) {
+					texto += "\n" + p; 
+				}
+			}
+			return texto;
+		}
+		
+		public static void removerProduto(int id) 	throws  Exception{
+
+			Produto prod = manager.find(Produto.class, id);
+			if(prod == null){ 
+				throw new Exception("Produto nao cadastrada:" + id);
+			}
+			manager.getTransaction().begin();
+			manager.remove(prod);
+			manager.getTransaction().commit();
+		}
+
+		public static void removerCliente(int id) 	throws  Exception{
+
+			Cliente cli = manager.find(Cliente.class, id);
+			if(cli == null){ 
+				throw new Exception("Cliente nao cadastrado:" + id);
+			}
+			manager.getTransaction().begin();
+			manager.remove(cli);
+			manager.getTransaction().commit();
+		}
 }

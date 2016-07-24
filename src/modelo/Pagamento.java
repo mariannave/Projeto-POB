@@ -23,7 +23,7 @@ public class Pagamento {
 	@ManyToOne
 	private Funcionario funcionario;
 	
-	@ManyToMany(mappedBy="pagamentos", cascade=CascadeType.ALL)
+	@ManyToMany
 	private List<Servico> servicos = new ArrayList<Servico>();
 	
 	
@@ -33,17 +33,20 @@ public class Pagamento {
 		return id;
 	}
 	
-//	SERVIÇO
-	
 	public void addServico(Servico servico) {
 		servicos.add(servico);
 	}
+	
 	public void addCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 	
 	public void addFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+	
+	public List<Servico> getServicos() {
+		return this.servicos;
 	}
 	
 }
