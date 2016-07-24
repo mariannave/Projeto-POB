@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Pagamento {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -49,4 +50,9 @@ public class Pagamento {
 		return this.servicos;
 	}
 	
+	@Override
+	public String toString() {
+		return "Id = " + id + " \n ---  \nCliente = " + cliente + " \n--- \n Funcionario = " + funcionario ;
+	}
+
 }

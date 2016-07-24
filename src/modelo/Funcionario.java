@@ -21,7 +21,8 @@ public class Funcionario extends Pessoa{
 		super(nome);
 		this.funcao = funcao;
 	}
-
+	
+	
 	public void setFuncao(String funcao){
 		this.funcao = funcao;
 	}

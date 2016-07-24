@@ -18,10 +18,11 @@ public class Sistema {
 	private static EntityManager manager;
 
 	// INICIALIZANDO O BANCO
-	public static void inicializar(){
+	public static EntityManager inicializar(){
 		EntityManagerFactory factory =	
 				Persistence.createEntityManagerFactory("salao");
 		manager = factory.createEntityManager();
+		return manager;
 	}	
 	
 	// ENCERRANDO O BANCO
@@ -275,4 +276,6 @@ public class Sistema {
 			manager.remove(cli);
 			manager.getTransaction().commit();
 		}
+		
+		
 }
