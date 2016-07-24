@@ -1,11 +1,17 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
 public class Funcionario extends Pessoa{
 	
 	private String funcao;
+	
+	@OneToMany(mappedBy="funcionario", cascade=CascadeType.ALL)
+	private List<Pagamento> pagamentos = new ArrayList<Pagamento>(); 
 	
 	public Funcionario() {
 		super();
@@ -24,6 +30,7 @@ public class Funcionario extends Pessoa{
 		return funcao;
 	}
 
+	
 	@Override
 	public String toString() {
 		return super.toString() + " ---- Funcao = "+ funcao;

@@ -20,6 +20,9 @@ public class Servico {
 	@ManyToMany
 	private List<Produto> produtos = new ArrayList<Produto>();
 	
+	@ManyToMany
+	private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
+	
 	
 	public Servico(){ }
 	
@@ -54,6 +57,23 @@ public class Servico {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public void addProduto(Produto produto) {
+		this.produtos.add(produto);
+	}
+
+	// Pagamento
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+	
+	public void addPagamento(Pagamento pagamento) {
+		this.pagamentos.add(pagamento);
 	}
 
 	

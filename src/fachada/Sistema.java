@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import modelo.Cliente;
 import modelo.Funcionario;
+import modelo.Pagamento;
 import modelo.Produto;
 import modelo.Servico;
 
@@ -151,28 +152,29 @@ public class Sistema {
 		public static void addProdutoServico(int idServico, int idProduto)  throws Exception {
 					
 			Servico servico = manager.find(Servico.class, idServico);
-			if(servico == null){
-				throw new Exception("Servico não encontrado: " + idServico );
-			}
 			
-			Query query = manager.createQuery("select p from Produto p where p.id='" +idProduto+ "'");
-			List<Produto> lista = (List<Produto>)query.getResultList();
-			Produto prod;
-					
-			if (lista.isEmpty()){
-				prod = null;
-			}else{
-				prod = lista.get(0);
-			}
-		
-			if(prod.getServicos() != null){
-				throw new Exception("Produto ja alocado:" + idProduto);
-			}
+			Produto produto = manager.find(Produto.class, idProduto);
 					
 			manager.getTransaction().begin();
-			prod.addServico(servico);
-			manager.merge(prod);
+			servico.addProduto(produto);
+			//manager.merge(produto);
 			manager.getTransaction().commit();	
+		}
+		
+		//CADASTRANDO PAGAMENTO
+		public static void addPagamento(int cliente, int servico, int funcionario){
+			Cliente client = manager.find(Cliente.class, cliente);
+			Servico servic = manager.find(Servico.class, servico);
+			Funcionario func =  manager.find(Funcionario.class, funcionario);
+
+			manager.getTransaction().begin();
+			Pagamento pag = new Pagamento();
+			pag.addCliente(client);
+			pag.addServico(servic);
+			pag.addFuncionario(func);
+			manager.merge(pag);
+			manager.getTransaction().commit();
+			
 		}
 			
 }

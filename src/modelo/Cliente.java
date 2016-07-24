@@ -1,12 +1,20 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 
 @Entity
 public class Cliente extends Pessoa{
 	private String telefone;
 	private String endereco;
+	
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	private List<Pagamento> pagamentos = new ArrayList<Pagamento>(); 
 	
 	public Cliente(){
 		super();
@@ -33,6 +41,7 @@ public class Cliente extends Pessoa{
 	public String getEndereco(){
 		return endereco;
 	}
+	
 	
 	@Override
 	public String toString() {
