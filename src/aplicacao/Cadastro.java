@@ -46,13 +46,6 @@ public class Cadastro {
 //			servico = Sistema.cadastrarServico("Selagem", 100.00);
 //			System.out.println("Servico cadastrado");
 			
-//			CADASTRANDO PRODUTO EM UM SERVICO
-			Sistema.addProdutoServico(1,1);
-			Sistema.addProdutoServico(1,2);
-			Sistema.addProdutoServico(2,4);
-			Sistema.addProdutoServico(3,4);
-			System.out.println("Produto vinculado a servico.");
-			
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
