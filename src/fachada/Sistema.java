@@ -150,32 +150,71 @@ public class Sistema {
 		}
 				
 		//CADASTRANDO PRODUTO AO SERVICO
-		public static void addProdutoServico(int idServico, int idProduto)  throws Exception {
-			Servico servico = manager.find(Servico.class, idServico);
+		public static void addProdutoServico(String servico, String produto)  throws Exception {
+			Query s = manager.createQuery("select s FROM Servico s WHERE s.descricao = '"+servico+"'");
+			List<Servico>listaServico = s.getResultList() ;
+			Servico servic ;
 			
-			Produto produto = manager.find(Produto.class, idProduto);
+			
+			if(listaServico.isEmpty()){
+				servic = null;
+			}else{
+				servic = listaServico.get(0);
+			}
+			
+			System.out.println(servic);
+
+			
+			Query p = manager.createQuery("select p FROM Produto p WHERE p.nome = '"+produto+"'");
+			List<Produto> listaProduto = p.getResultList();
+			Produto produt;
+			
+			if(listaProduto.isEmpty()){
+				produt = null;
+			}else{
+				produt = listaProduto.get(0);
+			}
 					
+			System.out.println(produt);
+
 			manager.getTransaction().begin();
-			servico.addProduto(produto);
-			//manager.merge(produto);
+			servic.addProduto(produt);
+			manager.merge(produt);
 			manager.getTransaction().commit();	
 		}
 		
 		//CADASTRANDO PAGAMENTO
-		public static void addPagamento(int cliente, int servico, String funcionario){
-			Cliente client = manager.find(Cliente.class, cliente);
-			Servico servic = manager.find(Servico.class, servico);
-
-			Query s = manager.createQuery("select f FROM Funcionario f WHERE f.nome = '" +funcionario+ "'");		
-			List<Funcionario> lista = (List<Funcionario>)s.getResultList();
+		public static void addPagamento(String cliente, String servico, String funcionario){
+			Query c = manager.createQuery("select c FROM Cliente c WHERE c.nome = '"+cliente+"'");		
+			List<Cliente> listaCliente = c.getResultList();
+			Cliente client;
+			
+			if (listaCliente.isEmpty()){
+				client = null;
+			}else{
+				client = listaCliente.get(0);
+			}
+			
+			Query se = manager.createQuery("Select s FROM Servico s WHERE s.descricao= '"+servico+"'");
+			List<Servico> listaServico = se.getResultList();
+			Servico servic;
+			
+			if (listaServico.isEmpty()){
+				servic = null;
+			}else{
+				servic = listaServico.get(0);
+			}
+			
+			
+			Query f = manager.createQuery("select f FROM Funcionario f WHERE f.nome = '"+funcionario+"'");		
+			List<Funcionario> listaFuncionario = f.getResultList();
 			Funcionario func;
 			
-			if (lista.isEmpty()){
+			if (listaFuncionario.isEmpty()){
 				func = null;
 			}else{
-				func = lista.get(0);
+				func = listaFuncionario.get(0);
 			}
-
 
 
 			manager.getTransaction().begin();
