@@ -13,31 +13,32 @@ public class Atualizacao {
 //				RELACIONAMENTOS
 				
 //				CADASTRANDO PRODUTO EM UM SERVICO
-//				Sistema.addProdutoServico(1,1);
-//				Sistema.addProdutoServico(1,2);
-//				Sistema.addProdutoServico(2,4);
-//				Sistema.addProdutoServico(3,4);
-//				System.out.println("Produto vinculado a servico.");
-//				
-//				Sistema.addPagamento(1,1,"Laura Rocha Oliveira");
-//				Sistema.addPagamento(2,3,"Ana Ferreira Souza");
-//				Sistema.addPagamento(3,4,"Raissa Costa Rodrigues");
-//				System.out.println("Pagamentos efetuados");
+				Sistema.addProdutoServico("Escova de cabelo", "Shampoo");
+				Sistema.addProdutoServico("Manicure","Esmalte");
+				Sistema.addProdutoServico("Selagem","Shampoo");
+				Sistema.addProdutoServico("Escova de cabelo","Condicionador");
+				System.out.println("Produto vinculado a servico.");
+
+//				CADASTRANDO PAGAMENTOS 	
+				Sistema.addPagamento("Maria Silva","Escova de cabelo","Ana Ferreira Souza");
+				Sistema.addPagamento("Ana Clara","Escova","Ana Ferreira Souza");
+				Sistema.addPagamento("Tereza Soares","Selagem","Ana Ferreira Souza");
+				System.out.println("Pagamentos efetuados");
 				
 				
 				//LISTANDO 
 				System.out.println(Sistema.listarCliente());
-//				System.out.println(Sistema.listarFuncionario());
-//				System.out.println(Sistema.listarServicos());
-//				System.out.println(Sistema.listarProdutos());
+				System.out.println(Sistema.listarFuncionario());
+				System.out.println(Sistema.listarServicos());
+				System.out.println(Sistema.listarProdutos());
 //				
 				// REMOVENDO PRODUTO
-//				Sistema.removerProduto(1);
-//				Sistema.removerProduto(3);
+				Sistema.removerProduto(1);
+				Sistema.removerProduto(3);
 				
 				// REMOVENDO CLIENTE
-//				Sistema.removerCliente(2);
-//				Sistema.removerCliente(4);
+				Sistema.removerCliente(2);
+				Sistema.removerCliente(4);
 				
 				
 				
