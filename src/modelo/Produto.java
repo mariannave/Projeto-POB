@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,6 @@ public class Produto {
 	private String nome;
 	private int qtde;
 	
-	@ManyToMany(mappedBy="produtos", cascade=CascadeType.ALL)
 	private List<Servico> servicos = new ArrayList<Servico>(); 
 	
 	public Produto(){}

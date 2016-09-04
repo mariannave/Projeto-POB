@@ -2,11 +2,12 @@ package fachada;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
+import daojpa.DAO;
+import daojpa.DAOCliente;
+import daojpa.DAOFuncionario;
+import daojpa.DAOPagamento;
+import daojpa.DAOProduto;
+import daojpa.DAOServico;
 import modelo.Cliente;
 import modelo.Funcionario;
 import modelo.Pagamento;
@@ -15,49 +16,41 @@ import modelo.Servico;
 
 public class Sistema {
 	
-	private static EntityManager manager;
+	private static DAOProduto daoProduto = new DAOProduto();
+	private static DAOCliente daoCliente = new DAOCliente();
+	private static DAOFuncionario daoFuncionario = new DAOFuncionario();
+	private static DAOServico daoServico = new DAOServico();
+	private static DAOPagamento daoPagamento = new DAOPagamento();
 
-	// INICIALIZANDO O BANCO
-	public static EntityManager inicializar(){
-		EntityManagerFactory factory =	
-				Persistence.createEntityManagerFactory("salao");
-		manager = factory.createEntityManager();
-		return manager;
-	}	
+
 	
-	// ENCERRANDO O BANCO
-	public static void finalizar(){
-		manager.close();
+	public static void inicializar(){
+		DAO.abrir();
 	}
 	
+	public static void finalizar(){
+		DAO.fechar();
+	}
+		
 	// ---------- CLIENTE -----
 	
 	// CADASTRANDO CLIENTE
 	public static Cliente cadastroCliente(String nome, String telefone, String endereco) 
 			throws  Exception{
+	
+		DAO.begin();
 		
-		Query query;
-		query = manager.createQuery("select c from Cliente c where c.nome='" +nome+ "'");
-		List<Cliente> lista = (List<Cliente>)query.getResultList();
-		Cliente cliente;
-		
-		if (lista.isEmpty()){
-			cliente = null;
-		} else {
-			cliente = lista.get(0);
-		}
+		Cliente cliente = daoCliente.localizarPeloNome(nome); 
 		
 		if(cliente != null){
 			throw new Exception("Cliente ja cadastrado:" + nome);
 		}
-		
-		manager.getTransaction().begin();
+	
 		cliente = new Cliente(nome,telefone,endereco);
-		manager.persist(cliente);
-		manager.getTransaction().commit();
-
-		return cliente;					
+		daoCliente.persistir(cliente);
+		daoCliente.commit();
 		
+		return cliente;
 	}
 	
 	//	FUNCIONARIO
@@ -65,26 +58,18 @@ public class Sistema {
 		public static Funcionario cadastroFuncionario(String nome, String funcao) 
 				throws  Exception{
 			
-			Query query;
-			query = manager.createQuery("select f from Funcionario f where f.nome='" +nome+ "'");
-			List<Funcionario> lista = (List<Funcionario>)query.getResultList();
-			Funcionario funcionario;
+			DAO.begin();
 			
-			if (lista.isEmpty()){
-				funcionario = null;
-			} else {
-				funcionario = lista.get(0);
-			}
+			Funcionario funcionario = daoFuncionario.localizarPeloNome(nome);
 			
 			if(funcionario != null){
 				throw new Exception("Funcionario ja cadastrado:" + nome);
 			}
 			
-			manager.getTransaction().begin();
-			funcionario = new Funcionario(nome,funcao);
-			manager.persist(funcionario);
-			manager.getTransaction().commit();
-
+			funcionario = new Funcionario(nome, funcao);
+			daoFuncionario.persistir(funcionario);
+			daoFuncionario.commit();
+			
 			return funcionario;					
 			
 		}
@@ -93,167 +78,114 @@ public class Sistema {
 		//CADASTRANDO PRODUTO
 		public static Produto cadastrarProduto(String nome, int qtde) 
 				throws  Exception{
-
-		
-			Query q = manager.createQuery("select p from Produto p where p.nome='" +nome+ "'");		
-			List<Produto> lista = q.getResultList();
-			Produto p;
-
-			if (lista.isEmpty()){
-				p = null;
-			}else{
-				p = lista.get(0);
+			DAO.begin();	
+			Produto produto = daoProduto.localizarPeloNome(nome);
+			if(produto != null){
+				throw new Exception("Produto ja cadastrado:" + nome);
 			}
-				
 
+			produto = new Produto(nome,qtde);
+			daoProduto.persistir(produto);
+			DAO.commit();
 
-			if(p != null){
-				throw new Exception("produto ja cadastrado:" + nome);
-			}
-			
-
-			manager.getTransaction().begin();
-			p = new Produto(nome,qtde);
-			manager.persist(p);
-			manager.getTransaction().commit();
-
-			return p;
+			return produto;
 		}
 		
 		//SERVICO
 		//CADASTRANDO SERVICO
 		public static Servico cadastrarServico(String descricao, double valor) 
 						throws  Exception{
-
-				
-			Query q = manager.createQuery("select s from Servico s where s.descricao='" +descricao+ "'");		
-			List<Servico> lista = (List<Servico>)q.getResultList();
-			Servico s;
-
-			if (lista.isEmpty()){
-			s = null;
-			}else{
-				s = lista.get(0);
-			}
-						
-
-
-			if(s != null){
+			DAO.begin();
+			Servico servico = daoServico.localizarPeloNome(descricao);
+			if(servico != null){
 				throw new Exception("Servico ja cadastrado:" + descricao);
-			}					
-
-			manager.getTransaction().begin();
-			s = new Servico(descricao,valor);
-			manager.persist(s);
-			manager.getTransaction().commit();
-				return s;
+			}
+			
+			servico = new Servico(descricao,valor);
+			daoServico.persistir(servico);
+			DAO.commit();
+			
+			return servico;
 		}
 				
 		//CADASTRANDO PRODUTO AO SERVICO
 		public static void addProdutoServico(String servico, String produto)  throws Exception {
-			Query s = manager.createQuery("select s FROM Servico s WHERE s.descricao = '"+servico+"'");
-			List<Servico>listaServico = s.getResultList() ;
-			Servico servic ;
+			DAO.begin();
 			
-			
-			if(listaServico.isEmpty()){
-				servic = null;
-			}else{
-				servic = listaServico.get(0);
+			Servico s = daoServico.localizarPeloNome(servico);
+			if(s == null){
+				throw new Exception("Servico não cadastrado:" + servico);
 			}
 			
-			System.out.println(servic);
-
-			
-			Query p = manager.createQuery("select p FROM Produto p WHERE p.nome = '"+produto+"'");
-			List<Produto> listaProduto = p.getResultList();
-			Produto produt;
-			
-			if(listaProduto.isEmpty()){
-				produt = null;
-			}else{
-				produt = listaProduto.get(0);
+			Produto p = daoProduto.localizarPeloNome(produto);
+			if(p == null){
+				throw new Exception("Produto não cadastrado:" + produto);
 			}
-					
-			System.out.println(produt);
+			
+			
 
-			manager.getTransaction().begin();
-			servic.addProduto(produt);
-			manager.merge(produt);
-			manager.getTransaction().commit();	
+			s.addProduto(p);
+			p.addServico(s);
+			daoServico.atualizar(s);
+			daoProduto.atualizar(p);
+			DAO.commit();
 		}
 		
+		//PAGAMENTO
 		//CADASTRANDO PAGAMENTO
-		public static void addPagamento(String cliente, String servico, String funcionario){
-			Query c = manager.createQuery("select c FROM Cliente c WHERE c.nome = '"+cliente+"'");		
-			List<Cliente> listaCliente = c.getResultList();
-			Cliente client;
+		public static void addPagamento(String cliente, String servico, String funcionario) throws Exception{
+			DAO.begin();
 			
-			if (listaCliente.isEmpty()){
-				client = null;
-			}else{
-				client = listaCliente.get(0);
+			Cliente c = daoCliente.localizarPeloNome(cliente);
+			if(c == null){
+				throw new Exception("Cliente não cadastrado:" + cliente);
 			}
 			
-			Query se = manager.createQuery("Select s FROM Servico s WHERE s.descricao= '"+servico+"'");
-			List<Servico> listaServico = se.getResultList();
-			Servico servic;
-			
-			if (listaServico.isEmpty()){
-				servic = null;
-			}else{
-				servic = listaServico.get(0);
+			Servico s = daoServico.localizarPeloNome(servico);
+			if(s == null){
+				throw new Exception("Servico não cadastrado:" + servico);
 			}
 			
-			
-			Query f = manager.createQuery("select f FROM Funcionario f WHERE f.nome = '"+funcionario+"'");		
-			List<Funcionario> listaFuncionario = f.getResultList();
-			Funcionario func;
-			
-			if (listaFuncionario.isEmpty()){
-				func = null;
-			}else{
-				func = listaFuncionario.get(0);
+			Funcionario f = daoFuncionario.localizarPeloNome(funcionario);
+			if(f == null){
+				throw new Exception("Funcionário não cadastrado:" + funcionario);
 			}
-
-
-			manager.getTransaction().begin();
 			
 			Pagamento pag = new Pagamento();
-			pag.addCliente(client);
-			pag.addServico(servic);
-			pag.addFuncionario(func);
-			
-			manager.merge(pag);
-			manager.getTransaction().commit();
-			
+			pag.addCliente(c);
+			c.addPagamento(pag);
+			pag.addServico(s);
+			s.addPagamento(pag);
+			pag.addFuncionario(f);
+			f.addPagamento(pag);
+			daoPagamento.atualizar(pag);
+			DAO.commit();			
 		}
 			
-		
+		//LISTAR CLIENTES
 		public static String listarCliente() {
-			Query q = manager.createQuery("SELECT c FROM Cliente c");		
-			List<Cliente> aux = (List<Cliente>)q.getResultList();
-
-			String texto = "\nListagem de Clientes: \n";
-
+			List<Cliente> aux = daoCliente.listar();
+			
+			String texto = "Listagem de clientes: \n";
+			
 			if (aux.isEmpty())
-				texto += "Não possui clientes cadastrados";
+				texto += "Não existe clientes cadastrado";
 			else {	
 				for(Cliente c: aux) {
 					texto += "\n" + c; 
 				}
 			}
-			return texto;
+			return texto;	
 		}
 		
+		//LISTAR FUNCIONARIOS
 		public static String listarFuncionario() {
-			Query q = manager.createQuery("SELECT f FROM Funcionario f");		
-			List<Funcionario> aux = (List<Funcionario>)q.getResultList();
-
+			List<Funcionario> aux = daoFuncionario.listar();
+			
 			String texto = "\nListagem de Funcionarios: \n";
 
 			if (aux.isEmpty())
-				texto += "Não possui funcionarios cadastrados";
+				texto += "Não exite funcionarios cadastrados";
 			else {	
 				for(Funcionario f: aux) {
 					texto += "\n" + f; 
@@ -262,9 +194,9 @@ public class Sistema {
 			return texto;
 		}
 		
+		//LISTAR SERVICOS
 		public static String listarServicos() {
-			Query q = manager.createQuery("SELECT s FROM Servico s");		
-			List<Servico> aux = (List<Servico>)q.getResultList();
+			List<Servico> aux = daoServico.listar();
 
 			String texto = "\nListagem de Servicos: \n";
 
@@ -278,9 +210,9 @@ public class Sistema {
 			return texto;
 		}
 		
+		//LISTAR PRODUTOS
 		public static String listarProdutos() {
-			Query q = manager.createQuery("SELECT p FROM Produto p");		
-			List<Produto> aux = (List<Produto>)q.getResultList();
+			List<Produto> aux = daoProduto.listar();
 
 			String texto = "\nListagem de Produtos: \n";
 
@@ -294,27 +226,38 @@ public class Sistema {
 			return texto;
 		}
 		
-		public static void removerProduto(int id) 	throws  Exception{
-
-			Produto prod = manager.find(Produto.class, id);
+		public static void removerProduto(String nome) 	throws  Exception{
+			DAO.begin();
+			
+			Produto prod = daoProduto.localizarPeloNome(nome);
 			if(prod == null){ 
-				throw new Exception("Produto nao cadastrada:" + id);
+				throw new Exception("Produto nao cadastrado:" + nome);
 			}
-			manager.getTransaction().begin();
-			manager.remove(prod);
-			manager.getTransaction().commit();
+
+			daoProduto.apagar(prod);
+			DAO.commit();
 		}
 
-		public static void removerCliente(int id) 	throws  Exception{
-
-			Cliente cli = manager.find(Cliente.class, id);
+		public static void removerCliente(String nome) 	throws  Exception{
+			DAO.begin();
+			Cliente cli = daoCliente.localizarPeloNome(nome);
 			if(cli == null){ 
-				throw new Exception("Cliente nao cadastrado:" + id);
+				throw new Exception("Cliente nao cadastrado: " + nome);
 			}
-			manager.getTransaction().begin();
-			manager.remove(cli);
-			manager.getTransaction().commit();
+			
+			daoCliente.apagar(cli);
+			DAO.commit();
 		}
 		
-		
+		public static void removerFuncionario(String nome) throws Exception{
+			DAO.begin();
+			
+			Funcionario func = daoFuncionario.localizarPeloNome(nome);
+			if(func == null){
+				throw new Exception("Funcionário nao cadastrado: " + nome);
+			}
+			
+			daoFuncionario.apagar(func);
+			DAO.commit();
+		}
 }

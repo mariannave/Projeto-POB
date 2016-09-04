@@ -27,7 +27,7 @@ public class Consulta {
 			System.out.println("Servico = "+s.getDescricao()+" ---- Valor = "  + s.getValor());
 		}
 		
-		
+		//Listando os funcionários e suas funções
 		Query query2 = manager.createQuery("SELECT f FROM Funcionario f");
 		List<Funcionario> resultado = query2.getResultList();
 		
