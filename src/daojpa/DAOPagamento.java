@@ -64,33 +64,21 @@ public class DAOPagamento extends DAO<Pagamento>{
 	        return null;
 	    }
 	}
-	
-	
-//	public List<Pagamento> localizarPorServico(String descricao){
-//	    try{
-//	        Query q = manager.createQuery("select s from Servico s where s.descricao= '"+descricao+"'");
-//	        List<Servico> servicos = q.getResultList();
-//	 
-//	        if (servicos.isEmpty()) {
-//	            return null;
-//	        }
-//	 
-//	        Servico servico = servicos.get(0);
-//	       
-//	       
-//	        Query p = manager.createQuery("Select p from Pagamento p where p.servico.id= "+ servico.getId());
-//	        List<Pagamento> pagamentos = p.getResultList();
-//	       
-//	        if(pagamentos.size() > 0){
-//	            return pagamentos;
-//	        }else{
-//	            return null;
-//	        }      
-//	       
-//	    }catch(NoResultException e){          
-//	        return null;
-//	    }
-//	}
+
+	public List<Pagamento> localizarPorServico(String descricao) {
+		if (descricao.length() == 0) {
+			return null;
+		}
+		
+		Query q = manager.createQuery("SELECT p FROM Pagamento p JOIN p.servicos s WHERE s.descricao LIKE '"+ descricao+"'");
+		List<Pagamento> pagamentos = q.getResultList();
+		
+		if (pagamentos.isEmpty()) {
+			return null;
+		}
+		
+		return pagamentos;
+	}
 	
 	
 }
