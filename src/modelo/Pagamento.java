@@ -24,7 +24,7 @@ public class Pagamento {
 	@ManyToOne
 	private Funcionario funcionario;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy="pagamentos", cascade=CascadeType.ALL)
 	private List<Servico> servicos = new ArrayList<Servico>();
 	
 	
@@ -52,7 +52,7 @@ public class Pagamento {
 	
 	@Override
 	public String toString() {
-		return "Id = " + id + " \n ---  \nCliente = " + cliente + " \n--- \n Funcionario = " + funcionario ;
+		return "Cliente\n"+cliente+"\nServicos\n" + servicos + "\nFuncionario\n" + funcionario;
 	}
 
 }

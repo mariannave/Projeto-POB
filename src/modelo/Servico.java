@@ -22,7 +22,7 @@ public class Servico {
 	@ManyToMany(mappedBy="servicos", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<Produto> produtos = new ArrayList<Produto>();
 	
-	@ManyToMany(mappedBy="servicos", cascade=CascadeType.ALL)
+	@ManyToMany
 	private List<Pagamento> pagamentos = new ArrayList<Pagamento>();
 	
 	
@@ -80,7 +80,7 @@ public class Servico {
 
 	@Override
 	public String toString() {
-		return "Id = " + id + " --- Descricao = " + descricao + " --- Valor = " + valor + " --- Produtos = " + produtos;
+		return "Descricao = " + descricao + " --- Valor = " + valor + " --- Produtos = " + produtos;
 	}
 	
 }

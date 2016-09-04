@@ -226,6 +226,65 @@ public class Sistema {
 			return texto;
 		}
 		
+		//Listar Pagamentos
+		public static String listarPagamentos(){
+			List<Pagamento> aux = daoPagamento.listar();
+
+			String texto = "\nListagem de Produtos: \n";
+
+			if (aux.isEmpty())
+				texto += "Não possui produtos cadastrados";
+			else {	
+				for(Pagamento p: aux) {
+					texto += "\n" + p; 
+				}
+			}
+			return texto;
+		}
+		
+		public static String listarPagCliente(String nome){
+			List<Pagamento> aux = daoPagamento.localizarPorCliente(nome);
+			String texto = "Pagamentos de cliente: "+ nome +"\n" ;
+			
+			if (aux.isEmpty()){
+				texto += "Não existem pagamentos para esse cliente";
+			}else {	
+				for(Pagamento p: aux) {
+					texto += "\n" + p +"\n"; 
+				}
+			}
+			return texto;			
+		}
+		
+		public static String listarPagFuncionario(String nome){
+			List<Pagamento> aux = daoPagamento.localizarPorFuncionario(nome);
+			String texto = "Pagamentos do funcionario: "+ nome +"\n" ;
+			
+			if (aux.isEmpty()){
+				texto += "Não existem pagamentos para esse funcionario";
+			}else {	
+				for(Pagamento p: aux) {
+					texto += "\n" + p; 
+				}
+			}
+			return texto;			
+		}
+		
+		public static String listarPagServico(String descricao){
+			List<Pagamento> aux = daoPagamento.localizarPorServico(descricao);
+			String texto = "Pagamentos realizados para o servico " + descricao +" :";
+			
+			if (aux.isEmpty()){
+				texto += "Não existem pagamentos para esse funcionario";
+			}else {	
+				for(Pagamento p: aux) {
+					texto += "\n" + p; 
+				}
+			}
+			return texto;		
+		}
+		
+		
 		public static void removerProduto(String nome) 	throws  Exception{
 			DAO.begin();
 			

@@ -28,19 +28,19 @@ public class Cadastro {
 
 			
 ////			CADASTRANDO PRODUTO;
-//			Sistema.cadastrarProduto("Shampoo", 10);
-//			Sistema.cadastrarProduto("Condicionador", 10);
-//			Sistema.cadastrarProduto("Tinta", 20);
-//			Sistema.cadastrarProduto("Esmalte", 100);
-//			System.out.println("Produto cadastrado");
+			Sistema.cadastrarProduto("Shampoo", 10);
+			Sistema.cadastrarProduto("Condicionador", 10);
+			Sistema.cadastrarProduto("Tinta", 20);
+			Sistema.cadastrarProduto("Esmalte", 100);
+			System.out.println("Produto cadastrado");
 			
 //////			CADASTRANDO SERVICO
-//			Sistema.cadastrarServico("Escova de cabelo", 30.00);
-//			Sistema.cadastrarServico("Manicure", 20.00);
-//			Sistema.cadastrarServico("Pedicure", 20.00);
-//			Sistema.cadastrarServico("Selagem", 100.00);
-//			System.out.println("Servico cadastrado");
-//			
+			Sistema.cadastrarServico("Escova de cabelo", 30.00);
+			Sistema.cadastrarServico("Manicure", 20.00);
+			Sistema.cadastrarServico("Pedicure", 20.00);
+			Sistema.cadastrarServico("Selagem", 100.00);
+			System.out.println("Servico cadastrado");
+			
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

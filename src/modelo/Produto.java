@@ -59,7 +59,7 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Id = " + id + " --- Nome = " + nome + " --- Quantidade =" + qtde;
+		return "Nome = " + nome + " --- Quantidade = " + qtde;
 	}
 	
 }

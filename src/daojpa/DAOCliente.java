@@ -4,7 +4,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import modelo.Cliente;
-import modelo.Produto;
 
 
 public class DAOCliente extends DAO<Cliente>{

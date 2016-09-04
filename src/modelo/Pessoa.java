@@ -34,7 +34,7 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "Id = " + id + " ---- Nome=" + nome  ;
+		return "Nome = " + nome;
 	}
 
 }

@@ -1,9 +1,12 @@
 package modelo;
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Funcionario extends Pessoa{
@@ -38,6 +41,6 @@ public class Funcionario extends Pessoa{
 	
 	@Override
 	public String toString() {
-		return super.toString() + " ---- Funcao = "+ funcao;
+		return super.toString() + " ---- Funcao = "+funcao;
 	}
 }
