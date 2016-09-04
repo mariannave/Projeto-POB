@@ -1,18 +1,13 @@
 package fachada;
 
 import java.util.List;
-
-import daojpa.DAO;
-import daojpa.DAOCliente;
-import daojpa.DAOFuncionario;
-import daojpa.DAOPagamento;
-import daojpa.DAOProduto;
-import daojpa.DAOServico;
+//import daojpa.*;
+import daodb4o.*;
 import modelo.Cliente;
 import modelo.Funcionario;
 import modelo.Pagamento;
 import modelo.Produto;
-import modelo.Servico;
+import modelo.Servico; 
 
 public class Sistema {
 	
@@ -292,8 +287,8 @@ public class Sistema {
 			if(prod == null){ 
 				throw new Exception("Produto nao cadastrado:" + nome);
 			}
-
 			daoProduto.apagar(prod);
+			
 			DAO.commit();
 		}
 

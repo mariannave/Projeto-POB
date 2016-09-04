@@ -30,7 +30,7 @@ public class Atualizacao {
 //				System.out.println(Sistema.listarFuncionario());
 //				System.out.println(Sistema.listarServicos());
 //				System.out.println(Sistema.listarProdutos());
-				System.out.println(Sistema.listarPagCliente("Ana Clara"));
+//				System.out.println(Sistema.listarPagCliente("Ana Clara"));
 //				System.out.println(Sistema.listarPagFuncionario("Ana Ferreira"));
 //				System.out.println(Sistema.listarPagServico("Escova de cabelo"));
 								
@@ -38,7 +38,7 @@ public class Atualizacao {
 
 				
 //				REMOVENDO PRODUTO
-//				Sistema.removerProduto("Condicionador");
+//				Sistema.removerProduto("Esmalte");
 //				Sistema.removerProduto("Shampoo");
 //				
 //				REMOVENDO CLIENTE
@@ -48,8 +48,8 @@ public class Atualizacao {
 //				Sistema.removerCliente("Lucia Moraes");
 //				
 //				REMOVENDO FUNCIONÁRIO				
-//				Sistema.removerFuncionario("Laura Rocha Oliveira");
-//				Sistema.removerFuncionario("Leila Sousa Azevedo");
+				Sistema.removerFuncionario("Laura Rocha");
+				Sistema.removerFuncionario("Leila Sousa");
 				
 				
 			} catch (Exception e) {
