@@ -54,7 +54,7 @@ public class Pagamento {
 	public String toString() {
 		String saida = "";
 		if (servicos.isEmpty()) {
-			saida += "Nenhum serviÃ§o\n";
+			saida += "Nenhum serviço\n";
 		} else {
 			for (Servico s : servicos) {
 				saida += s.getDescricao() + "\n";

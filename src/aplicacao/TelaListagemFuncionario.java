@@ -1,5 +1,6 @@
 package aplicacao;
 
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +17,8 @@ import javax.swing.border.EmptyBorder;
 import fachada.Sistema;
 import java.awt.Font;
 
-public class TelaListagemProduto extends JFrame {
 
+public class TelaListagemFuncionario extends JFrame{
 	private JPanel contentPane;
 	private JTextArea textArea;
 	private JButton btnCriar;
@@ -29,7 +30,7 @@ public class TelaListagemProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaListagemProduto frame = new TelaListagemProduto();
+					TelaListagemCliente frame = new TelaListagemCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +42,8 @@ public class TelaListagemProduto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaListagemProduto() {
-		setTitle("Listar Produto");
+	public TelaListagemFuncionario() {
+		setTitle("Listar Funcionários");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 335);
@@ -57,14 +58,14 @@ public class TelaListagemProduto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					
-					textArea.setText(Sistema.listarProdutos());
+					textArea.setText(Sistema.listarFuncionario());
 				}
 				catch(Exception erro){
 					JOptionPane.showMessageDialog(null,erro.getMessage());
 				}
 			}
 		});
-		btnCriar.setBounds(239, 272, 115, 23);
+		btnCriar.setBounds(223, 272, 115, 23);
 		contentPane.add(btnCriar);
 		
 		textArea = new JTextArea();

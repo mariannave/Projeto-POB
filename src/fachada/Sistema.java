@@ -1,8 +1,8 @@
 package fachada;
 
 import java.util.List;
-//import daojpa.*;
-import daodb4o.*;
+import daojpa.*;
+//import daodb4o.*;
 import modelo.Cliente;
 import modelo.Funcionario;
 import modelo.Pagamento;
@@ -128,7 +128,7 @@ public class Sistema {
 		
 		//PAGAMENTO
 		//CADASTRANDO PAGAMENTO
-		public static void addPagamento(String cliente, String servico, String funcionario) throws Exception{
+		public static Pagamento addPagamento(String cliente, String servico, String funcionario) throws Exception{
 			DAO.begin();
 			
 			Cliente c = daoCliente.localizarPeloNome(cliente);
@@ -148,17 +148,19 @@ public class Sistema {
 			
 			Pagamento pag = new Pagamento();
 			pag.addCliente(c);
-			c.addPagamento(pag);
+//			c.addPagamento(pag);
 			pag.addServico(s);
-			s.addPagamento(pag);
+//			s.addPagamento(pag);
 			pag.addFuncionario(f);
-			f.addPagamento(pag);
+//			f.addPagamento(pag);
 			daoPagamento.atualizar(pag);
-			DAO.commit();			
+			DAO.commit();
+			
+			return pag;
 		}
 			
 		//LISTAR CLIENTES
-		public static String listarCliente() {
+		public static String listarClientes() {
 			List<Cliente> aux = daoCliente.listar();
 			
 			String texto = "Listagem de clientes: \n";
@@ -225,10 +227,10 @@ public class Sistema {
 		public static String listarPagamentos(){
 			List<Pagamento> aux = daoPagamento.listar();
 
-			String texto = "\nListagem de Produtos: \n";
+			String texto = "\nListagem de Pagamentos: \n";
 
 			if (aux.isEmpty())
-				texto += "Não possui produtos cadastrados";
+				texto += "Não existe pagamentos cadastrados";
 			else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 
@@ -256,7 +258,7 @@ public class Sistema {
 			String texto = "Pagamentos do funcionario: "+ nome +"\n" ;
 			
 			if (aux.isEmpty()){
-				texto += "Não existem pagamentos para esse funcionario";
+				texto += "Não existe pagamentos para esse funcionario";
 			}else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 
@@ -270,7 +272,7 @@ public class Sistema {
 			String texto = "Pagamentos realizados para o servico " + descricao +" :";
 			
 			if (aux.isEmpty()){
-				texto += "Não existem pagamentos para esse funcionario";
+				texto += "Não existe pagamentos para esse serviço";
 			}else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 

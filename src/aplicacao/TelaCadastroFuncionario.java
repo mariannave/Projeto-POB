@@ -13,18 +13,16 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Sistema;
-import modelo.Produto;
+import modelo.Funcionario;
 import java.awt.Font;
 
-public class TelaCadastroProduto extends JFrame {
-
+public class TelaCadastroFuncionario extends JFrame{
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblNome;
-	private JLabel lblQuantidade;
-	private JButton btnCriar;
-
+	private JLabel lblFuncao;
+	private JButton btnCriar;	
 	/**
 	 * Launch the application.
 	 */
@@ -32,7 +30,7 @@ public class TelaCadastroProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroProduto frame = new TelaCadastroProduto();
+					TelaCadastroCliente frame = new TelaCadastroCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,8 +42,8 @@ public class TelaCadastroProduto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroProduto() {
-		setTitle("Cadastrar Produto");
+	public TelaCadastroFuncionario() {
+		setTitle("Cadastrar Funcionário");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 387, 199);
@@ -55,22 +53,22 @@ public class TelaCadastroProduto extends JFrame {
 		contentPane.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(96, 26, 171, 27);
+		textField.setBounds(72, 26, 171, 27);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNome.setBounds(10, 39, 46, 14);
+		lblNome.setBounds(16, 32, 46, 14);
 		contentPane.add(lblNome);
 
-		lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblQuantidade.setBounds(10, 83, 76, 21);
-		contentPane.add(lblQuantidade);
-
+		lblFuncao = new JLabel("Função");
+		lblFuncao.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblFuncao.setBounds(16,73,46,14);
+		contentPane.add(lblFuncao);
+	
 		textField_1 = new JTextField();
-		textField_1.setBounds(96, 77, 171, 27);
+		textField_1.setBounds(72, 67, 171, 27);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 
@@ -80,9 +78,9 @@ public class TelaCadastroProduto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					String nome = textField.getText();
-					int qtde = Integer.parseInt(textField_1.getText());
-					Produto p = Sistema.cadastrarProduto(nome,qtde);
-					JOptionPane.showMessageDialog(null,"cadastrado " +p.getNome());
+					String funcao = textField_1.getText();
+					Funcionario funcionario = Sistema.cadastroFuncionario(nome,funcao);
+					JOptionPane.showMessageDialog(null,"cadastrado "+funcionario.getNome());
 					
 					textField.setText("");
 					textField_1.setText("");
@@ -93,7 +91,10 @@ public class TelaCadastroProduto extends JFrame {
 				}
 			}
 		});
-		btnCriar.setBounds(243, 136, 115, 23);
+		btnCriar.setBounds(256, 136, 115, 23);
 		contentPane.add(btnCriar);
+		
 	}
+
+
 }
