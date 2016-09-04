@@ -52,7 +52,15 @@ public class Pagamento {
 	
 	@Override
 	public String toString() {
-		return "Cliente\n"+cliente+"\nServicos\n" + servicos + "\nFuncionario\n" + funcionario;
+		String saida = "";
+		if (servicos.isEmpty()) {
+			saida += "Nenhum serviço\n";
+		} else {
+			for (Servico s : servicos) {
+				saida += s.getDescricao() + "\n";
+			}
+		}
+		return "Cliente\n"+cliente+"\n[Servicos]: \n" + saida + "\nFuncionario\n" + funcionario;
 	}
 
 }
