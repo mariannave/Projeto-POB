@@ -1,21 +1,15 @@
-/**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
- * POB - Persistencia de Objetos
- * Prof. Fausto Ayres
- *
- */
 package daodb4o;
 
 import java.util.HashMap;
 import java.util.List;
 
+import com.db4o.ObjectContainer;
 import com.db4o.events.CancellableObjectEventArgs;
 import com.db4o.events.CommitEventArgs;
 import com.db4o.events.Event4;
 import com.db4o.events.EventListener4;
 import com.db4o.events.EventRegistry;
 import com.db4o.events.EventRegistryFactory;
-import com.sun.org.apache.xml.internal.security.signature.ObjectContainer;
 
 public class AutoGenerateIDManager {
 	private static ObjectContainer manager ;
@@ -63,7 +57,7 @@ public class AutoGenerateIDManager {
 		//				preDelete(args.object());
 		//			}});
 
-		// POST-COMMIT  - apos finalizar a transação
+		// POST-COMMIT  - apos finalizar a transaï¿½ï¿½o
 		eventRegistry.committed().addListener(new EventListener4<CommitEventArgs>() {
 			public void onEvent(Event4<CommitEventArgs> commitEventArgsEvent4, CommitEventArgs args) {
 				postCommit();
@@ -71,7 +65,7 @@ public class AutoGenerateIDManager {
 	}
 
 	private static void prePersist(Object objeto){
-		// aqui as ações antes do objeto ser persistido 
+		// aqui as aï¿½ï¿½es antes do objeto ser persistido 
 		if(objeto instanceof AutoGenerateIDInterface){
 			gerouid = true;
 			carregarContadores();		
@@ -80,7 +74,7 @@ public class AutoGenerateIDManager {
 			objetoautoincrementado.setId( novoid ); 
 
 		}
-		//para abortar a gravação use  event4.cancel();
+		//para abortar a gravaï¿½ï¿½o use  event4.cancel();
 	}
 	private static void postCommit(){
 		if (gerouid) {

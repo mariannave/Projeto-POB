@@ -4,9 +4,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
-import com.sun.org.apache.xml.internal.security.signature.ObjectContainer;
 
 import modelo.Cliente;
 import modelo.Funcionario;
@@ -60,7 +60,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 			
 		
 			//--------------Inicializar o gerente de id-----------------
-			//Apos a criação do banco
+			//Apos a criaï¿½ï¿½o do banco
 			AutoGenerateIDManager.inicializar(manager);
 			//----------------------------------------------------------
 		}
@@ -97,7 +97,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		manager.ext().refresh(obj, Integer.MAX_VALUE);
 	}
 	
-	//--------transação---------------
+	//--------transaï¿½ï¿½o---------------
 	public static void begin(){	}		// tem que ser vazio!
 	
 	public static void commit(){

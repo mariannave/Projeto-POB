@@ -2,12 +2,8 @@ package daodb4o;
 
 
 import java.util.List;
-
-import com.*;
-
-
+import com.db4o.query.Query;
 import modelo.Produto;
-
 public class DAOProduto  extends DAO<Produto>{
 	public DAOProduto(){
 		super();
