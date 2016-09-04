@@ -9,6 +9,9 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.6-bin.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-9.1-901-1.jdbc4.jar"/>
 	<classpathentry kind="lib" path="lib/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/db4o-8.1.249.16099-core-java5.jar"/>
+	<classpathentry kind="lib" path="lib/db4o-8.1.249.16099-cs-java5.jar"/>
+	<classpathentry kind="lib" path="lib/db4o-8.1.249.16099-cs.optional-java5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
