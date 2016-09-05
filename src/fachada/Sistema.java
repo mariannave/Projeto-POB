@@ -1,8 +1,14 @@
 package fachada;
 
 import java.util.List;
-import daojpa.*;
-//import daodb4o.*;
+
+//import daojpa.*;
+import daodb4o.DAO;
+import daodb4o.DAOCliente;
+import daodb4o.DAOFuncionario;
+import daodb4o.DAOPagamento;
+import daodb4o.DAOProduto;
+import daodb4o.DAOServico;
 import modelo.Cliente;
 import modelo.Funcionario;
 import modelo.Pagamento;
@@ -109,12 +115,12 @@ public class Sistema {
 			
 			Servico s = daoServico.localizarPeloNome(servico);
 			if(s == null){
-				throw new Exception("Servico n„o cadastrado:" + servico);
+				throw new Exception("Servico nÔøΩo cadastrado:" + servico);
 			}
 			
 			Produto p = daoProduto.localizarPeloNome(produto);
 			if(p == null){
-				throw new Exception("Produto n„o cadastrado:" + produto);
+				throw new Exception("Produto nÔøΩo cadastrado:" + produto);
 			}
 			
 			
@@ -133,26 +139,23 @@ public class Sistema {
 			
 			Cliente c = daoCliente.localizarPeloNome(cliente);
 			if(c == null){
-				throw new Exception("Cliente n„o cadastrado:" + cliente);
+				throw new Exception("Cliente nÔøΩo cadastrado:" + cliente);
 			}
 			
 			Servico s = daoServico.localizarPeloNome(servico);
 			if(s == null){
-				throw new Exception("Servico n„o cadastrado:" + servico);
+				throw new Exception("Servico nÔøΩo cadastrado:" + servico);
 			}
 			
 			Funcionario f = daoFuncionario.localizarPeloNome(funcionario);
 			if(f == null){
-				throw new Exception("Funcion·rio n„o cadastrado:" + funcionario);
+				throw new Exception("FuncionÔøΩrio nÔøΩo cadastrado:" + funcionario);
 			}
 			
 			Pagamento pag = new Pagamento();
 			pag.addCliente(c);
-//			c.addPagamento(pag);
 			pag.addServico(s);
-//			s.addPagamento(pag);
 			pag.addFuncionario(f);
-//			f.addPagamento(pag);
 			daoPagamento.atualizar(pag);
 			DAO.commit();
 			
@@ -166,7 +169,7 @@ public class Sistema {
 			String texto = "Listagem de clientes: \n";
 			
 			if (aux.isEmpty())
-				texto += "N„o existe clientes cadastrado";
+				texto += "N√£o existe clientes cadastrado";
 			else {	
 				for(Cliente c: aux) {
 					texto += "\n" + c; 
@@ -182,7 +185,7 @@ public class Sistema {
 			String texto = "\nListagem de Funcionarios: \n";
 
 			if (aux.isEmpty())
-				texto += "N„o exite funcionarios cadastrados";
+				texto += "NÔøΩo exite funcionarios cadastrados";
 			else {	
 				for(Funcionario f: aux) {
 					texto += "\n" + f; 
@@ -198,7 +201,7 @@ public class Sistema {
 			String texto = "\nListagem de Servicos: \n";
 
 			if (aux.isEmpty())
-				texto += "N„o possui servicos cadastrados";
+				texto += "NÔøΩo possui servicos cadastrados";
 			else {	
 				for(Servico s: aux) {
 					texto += "\n" + s; 
@@ -214,7 +217,7 @@ public class Sistema {
 			String texto = "\nListagem de Produtos: \n";
 
 			if (aux.isEmpty())
-				texto += "N„o possui produtos cadastrados";
+				texto += "NÔøΩo possui produtos cadastrados";
 			else {	
 				for(Produto p: aux) {
 					texto += "\n" + p; 
@@ -223,14 +226,14 @@ public class Sistema {
 			return texto;
 		}
 		
-		//Listar Pagamentos
+		//LISTAR PAGAMENTOS
 		public static String listarPagamentos(){
 			List<Pagamento> aux = daoPagamento.listar();
 
 			String texto = "\nListagem de Pagamentos: \n";
 
 			if (aux.isEmpty())
-				texto += "N„o existe pagamentos cadastrados";
+				texto += "NÔøΩo existe pagamentos cadastrados";
 			else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 
@@ -244,7 +247,7 @@ public class Sistema {
 			String texto = "Pagamentos de cliente: "+ nome +"\n" ;
 			
 			if (aux.isEmpty()){
-				texto += "N„o existem pagamentos para esse cliente";
+				texto += "NÔøΩo existem pagamentos para esse cliente";
 			}else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p +"\n"; 
@@ -258,7 +261,7 @@ public class Sistema {
 			String texto = "Pagamentos do funcionario: "+ nome +"\n" ;
 			
 			if (aux.isEmpty()){
-				texto += "N„o existe pagamentos para esse funcionario";
+				texto += "NÔøΩo existe pagamentos para esse funcionario";
 			}else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 
@@ -267,20 +270,8 @@ public class Sistema {
 			return texto;			
 		}
 		
-		public static String listarPagServico(String descricao){
-			List<Pagamento> aux = daoPagamento.localizarPorServico(descricao);
-			String texto = "Pagamentos realizados para o servico " + descricao +" :";
-			
-			if (aux.isEmpty()){
-				texto += "N„o existe pagamentos para esse serviÁo";
-			}else {	
-				for(Pagamento p: aux) {
-					texto += "\n" + p; 
-				}
-			}
-			return texto;		
-		}
 		
+//		REMO√á√ÉO DE PRODUTO
 		
 		public static void removerProduto(String nome) 	throws  Exception{
 			DAO.begin();
@@ -294,6 +285,19 @@ public class Sistema {
 			DAO.commit();
 		}
 
+//		REMO√á√ÉO SERVICO
+		public static void removerServico(String nome) throws Exception{
+			DAO.begin();
+			Servico serv = daoServico.localizarPeloNome(nome);
+			if(serv == null){
+				throw new Exception("Servico nao cadastrado:" + nome);
+			}
+			
+			daoServico.apagar(serv);
+			DAO.commit();			
+		}
+		
+//		REMO√á√ÉO DE CLIENTE
 		public static void removerCliente(String nome) 	throws  Exception{
 			DAO.begin();
 			Cliente cli = daoCliente.localizarPeloNome(nome);
@@ -305,12 +309,13 @@ public class Sistema {
 			DAO.commit();
 		}
 		
+//		REMO√á√ÉO DE FUNCION√ÅRIO
 		public static void removerFuncionario(String nome) throws Exception{
 			DAO.begin();
 			
 			Funcionario func = daoFuncionario.localizarPeloNome(nome);
 			if(func == null){
-				throw new Exception("Funcion·rio nao cadastrado: " + nome);
+				throw new Exception("Funcion√°rio nao cadastrado: " + nome);
 			}
 			
 			daoFuncionario.apagar(func);

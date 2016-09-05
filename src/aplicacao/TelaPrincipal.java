@@ -15,7 +15,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import fachada.Sistema;
-import javax.swing.JDesktopPane;
 
 public class TelaPrincipal {
 
@@ -34,6 +33,7 @@ public class TelaPrincipal {
 	private JMenu mnPagamento;
 	private JMenuItem mntmCadastrar_4;
 	private JMenuItem mntmListar_4;
+	private JMenuItem mntmRemoverServico;
 
 	/**
 	 * Launch the application.
@@ -82,7 +82,7 @@ public class TelaPrincipal {
 		
 		JLabel lblBemVindo = new JLabel("Bem vindo!");
 		lblBemVindo.setFont(new Font("Tekton Pro", Font.PLAIN, 49));
-		lblBemVindo.setBounds(129, 108, 222, 43);
+		lblBemVindo.setBounds(129, 108, 283, 71);
 		frmPrincipal.getContentPane().add(lblBemVindo);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -121,12 +121,12 @@ public class TelaPrincipal {
 		
 		/**
 		 *
-		 * MENU SERVI�O *
+		 * MENU SERVI�O *
 		 * 
 		 **/
 		mnServico = new JMenu("Servico");
 		menuBar.add(mnServico);
-		//Cadastrando Servi�o
+		//Cadastrando Servi�o
 		mntmCadastrar_2 = new JMenuItem("Cadastrar");
 		mntmCadastrar_2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
@@ -135,7 +135,7 @@ public class TelaPrincipal {
 			}
 		});
 		mnServico.add(mntmCadastrar_2);
-		// Listando Servi�o
+		// Listando Servi�o
 		mntmListar_2 = new JMenuItem("Listar");
 		mntmListar_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -144,6 +144,16 @@ public class TelaPrincipal {
 			}
 		});
 		mnServico.add(mntmListar_2);
+		
+		//Adicionando produto ao servico
+		JMenuItem mntmAdicionarProdutoservico = new JMenuItem("Adicionar Produto/Serviço");
+		mntmAdicionarProdutoservico.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				TelaCadastroProdServico j = new TelaCadastroProdServico();
+				j.setVisible(true);
+			}
+		});
+		mnServico.add(mntmAdicionarProdutoservico);
 		
 		/**
 		 *
@@ -177,7 +187,7 @@ public class TelaPrincipal {
 
 		/**
 		 *
-		 * MENU FUNCION�RIO *
+		 * MENU FUNCION�RIO *
 		 * 
 		 **/
 		mnFuncionrio = new JMenu("Funcion\u00E1rio");
@@ -228,6 +238,51 @@ public class TelaPrincipal {
 			}
 		});
 		mnPagamento.add(mntmListar_4);
+		
+
+		/**
+		 *
+		 * MENU REMOÇÃO *
+		 * 
+		 **/
+		JMenu mnRemoo = new JMenu("Remoção");
+		menuBar.add(mnRemoo);
+		//Removendo Produto
+		JMenuItem mntmRemoverProduto = new JMenuItem("Remover Produto");
+		mntmRemoverProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaRemoverProduto c = new TelaRemoverProduto();
+				c.setVisible(true);
+			}
+		});
+		mnRemoo.add(mntmRemoverProduto);
+		//Removendo Cliente
+		JMenuItem mntmRemoverCliente = new JMenuItem("Remover Cliente");
+		mntmRemoverCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaRemoverCLiente c = new TelaRemoverCLiente();
+				c.setVisible(true);
+			}
+		});
+		mnRemoo.add(mntmRemoverCliente);
+		//Removendo Funcionário
+		JMenuItem mntmRemoverFuncionrio = new JMenuItem("Remover Funcionário");
+		mntmRemoverFuncionrio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaRemoverFuncionario c = new TelaRemoverFuncionario();
+				c.setVisible(true);
+			}
+		});
+		mnRemoo.add(mntmRemoverFuncionrio);
+		
+		mntmRemoverServico = new JMenuItem("Remover Serviço");
+		mntmRemoverServico.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				TelaRemoverServico c = new TelaRemoverServico();
+				c.setVisible(true);
+			}
+		});
+		mnRemoo.add(mntmRemoverServico);
 		
 		
 		

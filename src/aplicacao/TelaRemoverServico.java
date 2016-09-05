@@ -1,6 +1,7 @@
 package aplicacao;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,16 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Sistema;
-import modelo.Produto;
-import java.awt.Font;
 
-public class TelaCadastroProduto extends JFrame {
-
+public class TelaRemoverServico extends JFrame{
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JLabel lblNome;
-	private JLabel lblQuantidade;
 	private JButton btnCriar;
 
 	/**
@@ -32,7 +28,7 @@ public class TelaCadastroProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroProduto frame = new TelaCadastroProduto();
+					TelaRemoverServico frame = new TelaRemoverServico();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,8 +40,8 @@ public class TelaCadastroProduto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroProduto() {
-		setTitle("Cadastrar Produto");
+	public TelaRemoverServico() {
+		setTitle("Remover Servico");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 387, 199);
@@ -55,37 +51,26 @@ public class TelaCadastroProduto extends JFrame {
 		contentPane.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(96, 26, 171, 27);
+		textField.setBounds(183, 54, 171, 27);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
-		lblNome = new JLabel("Nome");
+		lblNome = new JLabel("Nome do serviço :");
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNome.setBounds(10, 39, 46, 14);
+		lblNome.setBounds(12, 54, 170, 27);
 		contentPane.add(lblNome);
 
-		lblQuantidade = new JLabel("Quantidade");
-		lblQuantidade.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblQuantidade.setBounds(10, 83, 76, 21);
-		contentPane.add(lblQuantidade);
-
-		textField_1 = new JTextField();
-		textField_1.setBounds(96, 77, 171, 27);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-
-		btnCriar = new JButton("Cadastrar");
+		
+		btnCriar = new JButton("Remover");
 		btnCriar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					String nome = textField.getText();
-					int qtde = Integer.parseInt(textField_1.getText());
-					Produto p = Sistema.cadastrarProduto(nome,qtde);
-					JOptionPane.showMessageDialog(null,"Produto cadastrado " + p.getNome());
+					Sistema.removerServico(nome);
+					JOptionPane.showMessageDialog(null,"Serviço "+nome+" Removido com sucesso!");
 					
 					textField.setText("");
-					textField_1.setText("");
 					textField.requestFocus();
 				}
 				catch(Exception erro){
@@ -93,7 +78,8 @@ public class TelaCadastroProduto extends JFrame {
 				}
 			}
 		});
-		btnCriar.setBounds(243, 136, 115, 23);
+		btnCriar.setBounds(239, 123, 115, 23);
 		contentPane.add(btnCriar);
+		
 	}
 }
