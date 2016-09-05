@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
 import fachada.Sistema;
 
 public class TelaAtNomeServ extends JFrame{
@@ -64,7 +62,7 @@ public class TelaAtNomeServ extends JFrame{
 		lblNome.setBounds(12, 23, 309, 36);
 		contentPane.add(lblNome);
 		
-		JLabel lblNovoNome_1 = DefaultComponentFactory.getInstance().createLabel("Novo Nome :");
+		JLabel lblNovoNome_1 = new JLabel("Novo Nome :");
 		lblNovoNome_1.setBounds(12, 102, 136, 15);
 		contentPane.add(lblNovoNome_1);
 		
