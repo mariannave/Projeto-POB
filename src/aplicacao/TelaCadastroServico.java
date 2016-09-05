@@ -44,7 +44,7 @@ public class TelaCadastroServico extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroServico() {
-		setTitle("Cadastrar Serviço");
+		setTitle("Cadastrar Serviï¿½o");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 387, 199);
@@ -81,7 +81,7 @@ public class TelaCadastroServico extends JFrame {
 					String descricao = textField.getText();
 					double valor = Double.parseDouble(textField_1.getText());
 					Servico servico = Sistema.cadastrarServico(descricao,valor);
-					JOptionPane.showMessageDialog(null,"cadastrado "+servico.getDescricao());
+					JOptionPane.showMessageDialog(null,"Servico "+servico.getDescricao()+" cadastrado com sucesso!");
 					
 					textField.setText("");
 					textField_1.setText("");

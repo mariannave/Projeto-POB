@@ -95,8 +95,8 @@ public class TelaCadastroPagamento extends JFrame{
 					String cliente = textField.getText();
 					String funcionario = textField_1.getText();
 					String servico = textField_2.getText();
-					Pagamento pagamento = Sistema.addPagamento(cliente,servico,funcionario);
-					JOptionPane.showMessageDialog(null,"cadastrado "+pagamento);
+					Sistema.addPagamento(cliente,servico,funcionario);
+					JOptionPane.showMessageDialog(null,"Pagamento cadastrado com sucesso! ");
 					
 					textField.setText("");
 					textField_1.setText("");

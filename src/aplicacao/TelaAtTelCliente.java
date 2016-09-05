@@ -1,6 +1,7 @@
 package aplicacao;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,17 +13,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import fachada.Sistema;
-import modelo.Funcionario;
-import java.awt.Font;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-public class TelaCadastroFuncionario extends JFrame{
+import fachada.Sistema;
+
+public class TelaAtTelCliente extends JFrame{
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblNome;
-	private JLabel lblFuncao;
-	private JButton btnCriar;	
+	private JButton btnCriar;
+
 	/**
 	 * Launch the application.
 	 */
@@ -30,7 +31,7 @@ public class TelaCadastroFuncionario extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaCadastroCliente frame = new TelaCadastroCliente();
+					TelaAtTelCliente frame = new TelaAtTelCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,8 +43,8 @@ public class TelaCadastroFuncionario extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public TelaCadastroFuncionario() {
-		setTitle("Cadastrar Funcion�rio");
+	public TelaAtTelCliente() {
+		setTitle("Atualizar Cliente");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 387, 199);
@@ -53,34 +54,33 @@ public class TelaCadastroFuncionario extends JFrame{
 		contentPane.setLayout(null);
 
 		textField = new JTextField();
-		textField.setBounds(72, 26, 171, 27);
+		textField.setBounds(22, 55, 211, 23);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
-		lblNome = new JLabel("Nome");
+		lblNome = new JLabel("Nome do cliente :");
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNome.setBounds(16, 32, 46, 14);
+		lblNome.setBounds(12, 23, 309, 36);
 		contentPane.add(lblNome);
-
-		lblFuncao = new JLabel("Fun��o");
-		lblFuncao.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblFuncao.setBounds(16,73,46,14);
-		contentPane.add(lblFuncao);
-	
+		
+		JLabel lblNovoTel= DefaultComponentFactory.getInstance().createLabel("Novo Telefone:");
+		lblNovoTel.setBounds(12, 102, 136, 15);
+		contentPane.add(lblNovoTel);
+		
 		textField_1 = new JTextField();
-		textField_1.setBounds(72, 67, 171, 27);
+		textField_1.setBounds(22, 121, 211, 23);
 		contentPane.add(textField_1);
-		textField_1.setColumns(10);
 
-		btnCriar = new JButton("Cadastrar");
+		
+		btnCriar = new JButton("Atualizar");
 		btnCriar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					String nome = textField.getText();
-					String funcao = textField_1.getText();
-					Funcionario funcionario = Sistema.cadastroFuncionario(nome,funcao);
-					JOptionPane.showMessageDialog(null,"Funcionario "+funcionario.getNome()+" cadastrado com sucesso!");
+					String novoTel = textField_1.getText();
+					Sistema.atualizaTelCliente(nome, novoTel);
+					JOptionPane.showMessageDialog(null,"O telefone do cliente "+nome+" foi alterado para: " + novoTel);
 					
 					textField.setText("");
 					textField_1.setText("");
@@ -91,10 +91,10 @@ public class TelaCadastroFuncionario extends JFrame{
 				}
 			}
 		});
-		btnCriar.setBounds(256, 136, 115, 23);
+		btnCriar.setBounds(246, 150, 115, 23);
 		contentPane.add(btnCriar);
 		
+
+		
 	}
-
-
 }

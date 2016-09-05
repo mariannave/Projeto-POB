@@ -33,6 +33,11 @@ public class Sistema {
 		DAO.fechar();
 	}
 		
+	
+	/**
+	 * CADASTRO
+	 * */
+	
 	// ---------- CLIENTE -----
 	
 	// CADASTRANDO CLIENTE
@@ -49,7 +54,7 @@ public class Sistema {
 	
 		cliente = new Cliente(nome,telefone,endereco);
 		daoCliente.persistir(cliente);
-		daoCliente.commit();
+		DAO.commit();
 		
 		return cliente;
 	}
@@ -69,7 +74,7 @@ public class Sistema {
 			
 			funcionario = new Funcionario(nome, funcao);
 			daoFuncionario.persistir(funcionario);
-			daoFuncionario.commit();
+			DAO.commit();
 			
 			return funcionario;					
 			
@@ -115,12 +120,12 @@ public class Sistema {
 			
 			Servico s = daoServico.localizarPeloNome(servico);
 			if(s == null){
-				throw new Exception("Servico n�o cadastrado:" + servico);
+				throw new Exception("Servico nao cadastrado:" + servico);
 			}
 			
 			Produto p = daoProduto.localizarPeloNome(produto);
 			if(p == null){
-				throw new Exception("Produto n�o cadastrado:" + produto);
+				throw new Exception("Produto nao cadastrado:" + produto);
 			}
 			
 			
@@ -139,17 +144,17 @@ public class Sistema {
 			
 			Cliente c = daoCliente.localizarPeloNome(cliente);
 			if(c == null){
-				throw new Exception("Cliente n�o cadastrado:" + cliente);
+				throw new Exception("Cliente nao cadastrado:" + cliente);
 			}
 			
 			Servico s = daoServico.localizarPeloNome(servico);
 			if(s == null){
-				throw new Exception("Servico n�o cadastrado:" + servico);
+				throw new Exception("Servico nao cadastrado:" + servico);
 			}
 			
 			Funcionario f = daoFuncionario.localizarPeloNome(funcionario);
 			if(f == null){
-				throw new Exception("Funcion�rio n�o cadastrado:" + funcionario);
+				throw new Exception("Funcionario nao cadastrado:" + funcionario);
 			}
 			
 			Pagamento pag = new Pagamento();
@@ -161,7 +166,13 @@ public class Sistema {
 			
 			return pag;
 		}
-			
+		
+		/**
+		 * LISTAR
+		 *  
+		 * */
+		
+		
 		//LISTAR CLIENTES
 		public static String listarClientes() {
 			List<Cliente> aux = daoCliente.listar();
@@ -201,7 +212,7 @@ public class Sistema {
 			String texto = "\nListagem de Servicos: \n";
 
 			if (aux.isEmpty())
-				texto += "N�o possui servicos cadastrados";
+				texto += "Nao existe servicos cadastrados";
 			else {	
 				for(Servico s: aux) {
 					texto += "\n" + s; 
@@ -217,7 +228,7 @@ public class Sistema {
 			String texto = "\nListagem de Produtos: \n";
 
 			if (aux.isEmpty())
-				texto += "N�o possui produtos cadastrados";
+				texto += "Não existe produtos cadastrados";
 			else {	
 				for(Produto p: aux) {
 					texto += "\n" + p; 
@@ -233,7 +244,7 @@ public class Sistema {
 			String texto = "\nListagem de Pagamentos: \n";
 
 			if (aux.isEmpty())
-				texto += "N�o existe pagamentos cadastrados";
+				texto += "Não existe pagamentos cadastrados";
 			else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 
@@ -247,7 +258,7 @@ public class Sistema {
 			String texto = "Pagamentos de cliente: "+ nome +"\n" ;
 			
 			if (aux.isEmpty()){
-				texto += "N�o existem pagamentos para esse cliente";
+				texto += "Não existe pagamentos para esse cliente";
 			}else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p +"\n"; 
@@ -261,7 +272,7 @@ public class Sistema {
 			String texto = "Pagamentos do funcionario: "+ nome +"\n" ;
 			
 			if (aux.isEmpty()){
-				texto += "N�o existe pagamentos para esse funcionario";
+				texto += "Não existe pagamentos para esse funcionario";
 			}else {	
 				for(Pagamento p: aux) {
 					texto += "\n" + p; 
@@ -270,6 +281,9 @@ public class Sistema {
 			return texto;			
 		}
 		
+		/**
+		 * REMOÇÃO
+		 * */
 		
 //		REMOÇÃO DE PRODUTO
 		
@@ -315,10 +329,58 @@ public class Sistema {
 			
 			Funcionario func = daoFuncionario.localizarPeloNome(nome);
 			if(func == null){
-				throw new Exception("Funcionário nao cadastrado: " + nome);
+				throw new Exception("Funcionario nao cadastrado: " + nome);
 			}
 			
 			daoFuncionario.apagar(func);
 			DAO.commit();
+		}
+		
+		/**
+		 * ATUALIZAÇÃO
+		 * */
+		
+		//ATUALIZAR SERVICO
+		public static void atualizarServico(String nome, String novoNome) throws Exception{
+			DAO.begin();
+			
+			Servico servico = daoServico.localizarPeloNome(nome);
+			
+			if(servico == null){
+				throw new Exception("Servico nao cadastrado: "+nome);
+			}
+			
+			servico.setDescricao(novoNome);
+			daoServico.atualizar(servico);
+			DAO.commit();	
+			
+		}
+		
+		//ATUALIZAR TELEFONE DO CLIENTE
+		public static void atualizaTelCliente(String nome, String novoTelefone) throws Exception{
+			DAO.begin();
+			Cliente cliente = daoCliente.localizarPeloNome(nome);
+			
+			if(cliente == null){
+				throw new Exception("Cliente nao cadastrado: "+ nome);
+			}
+			
+			cliente.setTelefone(novoTelefone);
+			daoCliente.atualizar(cliente);
+			DAO.commit();			
+		}
+		
+		//ATUALIZAR QUANTIDADE DE PRODUTOS
+		public static void atualizarQtdeProd(String nome, int qtde)throws Exception{
+			DAO.begin();
+			
+			Produto produto = daoProduto.localizarPeloNome(nome);
+			
+			if(produto == null){
+				throw new Exception("Produto nao cadastrado: "+ nome);
+			}
+			produto.setQtde(qtde);
+			daoProduto.atualizar(produto);
+			DAO.commit();			
 		}
 }

@@ -34,6 +34,9 @@ public class TelaPrincipal {
 	private JMenuItem mntmCadastrar_4;
 	private JMenuItem mntmListar_4;
 	private JMenuItem mntmRemoverServico;
+	private JMenuItem mntmAtualizarNome;
+	private JMenuItem mntmAtualizarTelCliente;
+	private JMenuItem mntmAtualizarQuantidade;
 
 	/**
 	 * Launch the application.
@@ -118,6 +121,15 @@ public class TelaPrincipal {
 		});
 		mnCliente.add(mntmListar_1);
 		
+		mntmAtualizarTelCliente = new JMenuItem("Atualizar Telefone");
+		mntmAtualizarTelCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaAtTelCliente c = new TelaAtTelCliente();
+				c.setVisible(true);
+			}
+		});
+		mnCliente.add(mntmAtualizarTelCliente);
+		
 		
 		/**
 		 *
@@ -125,7 +137,10 @@ public class TelaPrincipal {
 		 * 
 		 **/
 		mnServico = new JMenu("Servico");
+		
 		menuBar.add(mnServico);
+		
+		
 		//Cadastrando Servi�o
 		mntmCadastrar_2 = new JMenuItem("Cadastrar");
 		mntmCadastrar_2.addActionListener(new ActionListener(){
@@ -155,6 +170,18 @@ public class TelaPrincipal {
 		});
 		mnServico.add(mntmAdicionarProdutoservico);
 		
+		//Atualizar nome do servico
+		
+		mntmAtualizarNome = new JMenuItem("Atualizar Nome");
+		mntmAtualizarNome.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				TelaAtNomeServ c = new TelaAtNomeServ();
+				c.setVisible(true);
+			}
+		});
+		
+		mnServico.add(mntmAtualizarNome);
+		
 		/**
 		 *
 		 * MENU PRODUTO *
@@ -182,12 +209,20 @@ public class TelaPrincipal {
 		});
 		mnProduto.add(mntmListar);
 		
-
+		//ATUALIZAR QUANTIDADE DE PRODUTO
+		mntmAtualizarQuantidade = new JMenuItem("Atualizar Quantidade");
+		mntmAtualizarQuantidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaAtQtdeProduto j = new TelaAtQtdeProduto();
+				j.setVisible(true);
+			}
+		});
+		mnProduto.add(mntmAtualizarQuantidade);
 		
 
 		/**
 		 *
-		 * MENU FUNCION�RIO *
+		 * MENU FUNCIONARIO *
 		 * 
 		 **/
 		mnFuncionrio = new JMenu("Funcion\u00E1rio");
@@ -274,7 +309,8 @@ public class TelaPrincipal {
 			}
 		});
 		mnRemoo.add(mntmRemoverFuncionrio);
-		
+
+		//REMOVENDO SERVICO
 		mntmRemoverServico = new JMenuItem("Remover Serviço");
 		mntmRemoverServico.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
@@ -283,9 +319,5 @@ public class TelaPrincipal {
 			}
 		});
 		mnRemoo.add(mntmRemoverServico);
-		
-		
-		
-		
 	}
 }

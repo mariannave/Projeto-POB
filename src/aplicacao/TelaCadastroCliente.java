@@ -71,7 +71,7 @@ public class TelaCadastroCliente extends JFrame {
 		lblTelefone.setBounds(10, 89, 62, 21);
 		contentPane.add(lblTelefone);
 
-		lblEndereco = new JLabel("Endereço");
+		lblEndereco = new JLabel("Endereï¿½o");
 		lblEndereco.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblEndereco.setBounds(10,55,65,27);
 		contentPane.add(lblEndereco);
@@ -96,7 +96,7 @@ public class TelaCadastroCliente extends JFrame {
 					String telefone = textField_1.getText();
 					String endereco = textField_2.getText();
 					Cliente cliente = Sistema.cadastroCliente(nome,telefone,endereco);
-					JOptionPane.showMessageDialog(null,"cadastrado "+cliente.getNome());
+					JOptionPane.showMessageDialog(null,"Cliente "+cliente.getNome()+" cadastrado com sucesso!");
 					
 					textField.setText("");
 					textField_1.setText("");
