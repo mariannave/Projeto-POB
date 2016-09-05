@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 
 import fachada.Sistema;
 
@@ -63,7 +63,7 @@ public class TelaAtTelCliente extends JFrame{
 		lblNome.setBounds(12, 23, 309, 36);
 		contentPane.add(lblNome);
 		
-		JLabel lblNovoTel= DefaultComponentFactory.getInstance().createLabel("Novo Telefone:");
+		JLabel lblNovoTel= new JLabel("Novo Telefone:");
 		lblNovoTel.setBounds(12, 102, 136, 15);
 		contentPane.add(lblNovoTel);
 		
